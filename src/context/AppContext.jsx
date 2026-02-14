@@ -6,6 +6,8 @@ import { isSupabaseConfigured } from '../lib/supabase';
 
 const AppContext = createContext();
 
+const prefersDark = typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
 const defaultState = {
   onboarded: false,
   partner1: '',
@@ -18,7 +20,7 @@ const defaultState = {
   quiz: { questions: [], answers: {}, score: 0, completed: false },
   bucketList: [],
   giftBox: { message: '', photo: null, coupons: [], opened: false },
-  darkMode: false,
+  darkMode: prefersDark,
 };
 
 export function AppProvider({ children }) {
@@ -42,6 +44,14 @@ export function AppProvider({ children }) {
   useEffect(() => {
     document.documentElement.classList.toggle('dark', state.darkMode);
   }, [state.darkMode]);
+
+  // Listen for OS theme changes
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    const handler = (e) => update({ darkMode: e.matches });
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
 
   return (
     <AppContext.Provider value={{
