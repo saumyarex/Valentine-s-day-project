@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Analytics } from '@vercel/analytics/react';
 import { useApp } from './context/AppContext';
 import FloatingHearts from './components/FloatingHearts';
 import Onboarding from './components/Onboarding';
@@ -91,5 +92,10 @@ function AppContent() {
 }
 
 export default function App() {
-  return <AppContent />;
+  return (
+    <>
+      <AppContent />
+      <Analytics />
+    </>
+  );
 }
