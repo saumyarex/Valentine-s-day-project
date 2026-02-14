@@ -34,7 +34,7 @@ function AppContent() {
 
   const toggleMusic = useCallback(() => {
     if (!audioRef.current) {
-      audioRef.current = new Audio('https://cdn.pixabay.com/audio/2024/11/29/audio_d4e4cf8300.mp3');
+      audioRef.current = new Audio('https://archive.org/download/romantic_piano/romantic_piano.mp3');
       audioRef.current.loop = true;
       audioRef.current.volume = 0.3;
     }
